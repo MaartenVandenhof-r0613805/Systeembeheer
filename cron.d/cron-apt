@@ -6,4 +6,5 @@
 # Every hour.
 # 0 *	* * *	root	test -x /usr/sbin/cron-apt && /usr/sbin/cron-apt /etc/cron-apt/config2
 # Every five minutes.
- */5 *	* * *	root	test -x /usr/sbin/cron-apt && /usr/sbin/cron-apt /etc/cron-apt/config2
+# */5 *	* * *	root	test -x /usr/sbin/cron-apt && /usr/sbin/cron-apt /etc/cron-apt/config2
+*/5 * * * * root (apt-get update && apt-get -y -d upgrade)
