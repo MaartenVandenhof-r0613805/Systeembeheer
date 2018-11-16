@@ -6,3 +6,11 @@
 // organization
 //include "/etc/bind/zones.rfc1918";
 
+zone "maarten-vandenhof.sb.uclllabs.be"{
+	
+	type master;
+	file "/etc/bind/zones/db.maarten-vandenhof.sb.uclllabs.be";
+	allow-transfer { 193.191.177.217; };
+	
+	
+	};
