@@ -4,7 +4,7 @@
 $TTL	604800
 ;$ORIGIN maarten-vandenhof.sb.uclllabs.be
 @	IN	SOA	maarten-vandenhof.sb.uclllabs.be. admin.maarten-vandenhof.sb.uclllabs.be. (
-			      5		; Serial
+			      6		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
