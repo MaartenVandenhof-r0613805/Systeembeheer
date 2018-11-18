@@ -2,7 +2,7 @@
 ; BIND data file for local loopback interface
 ;
 $TTL	604800
-;$ORIGIN maarten-vandenhof.sb.uclllabs.be
+;$ORIGIN maarten-vandenhof.sb.uclllabs.be.
 @	IN	SOA	maarten-vandenhof.sb.uclllabs.be. admin.maarten-vandenhof.sb.uclllabs.be. (
 			      8		; Serial
 			 604800		; Refresh
