@@ -19,6 +19,6 @@ $TTL	604800
 www		IN	A	193.191.177.166
 ns		IN      A       193.191.177.166
 test		IN      A       193.191.177.254
-www1		IN	A	193.191.177.166
-www2		IN	A	193.191.177.166
+www1		IN	CNAME	www
+www2		IN	CNAME	www
 
