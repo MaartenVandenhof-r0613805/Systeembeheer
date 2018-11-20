@@ -10,6 +10,20 @@
 
 	ServerAdmin webmaster@maarten-vandenhof.sb.uclllabs.be
 	DocumentRoot /var/www/www1/html
+
+	<Directory "/var/www/www1/private<Directory "/var/www/www1/private">
+                AuthType Basic
+                AuthName "Restricted Content"
+                AuthUserFile /etc/apache2/.htpassword
+                Require valid-user
+        </Directory>
+">
+		AuthType Basic
+        	AuthName "Restricted Content"
+        	AuthUserFile /etc/apache2/.htpassword
+        	Require valid-user
+        </Directory>	
+
 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 	# error, crit, alert, emerg.
 	# It is also possible to configure the loglevel for particular
@@ -18,10 +32,6 @@
 
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
-	
-	<Directory "/var/www/www1/private">
-		AllowOverride AuthConfig
-    	</Directory>
 
 	# For most configuration files from conf-available/, which are
 	# enabled or disabled at a global level, it is possible to
@@ -29,7 +39,6 @@
 	# following line enables the CGI configuration for this host only
 	# after it has been globally disabled with "a2disconf".
 	#Include conf-available/serve-cgi-bin.conf
-	
 </VirtualHost>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
