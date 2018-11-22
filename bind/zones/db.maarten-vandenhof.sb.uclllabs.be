@@ -4,7 +4,7 @@
 $TTL	604800
 ;$ORIGIN maarten-vandenhof.sb.uclllabs.be
 @	IN	SOA	maarten-vandenhof.sb.uclllabs.be. admin.maarten-vandenhof.sb.uclllabs.be. (
-			     26		; Serial
+			     28		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
@@ -21,4 +21,5 @@ ns		IN      A       193.191.177.166
 test		IN      A       193.191.177.254
 www1		IN	CNAME	www
 www2		IN	CNAME	www
-
+secure		IN	A	193.191.177.166
+supersecure	IN	A	193.191.177.166
