@@ -4,7 +4,7 @@
 $TTL	604800
 ;$ORIGIN maarten-vandenhof.sb.uclllabs.be
 @	IN	SOA	maarten-vandenhof.sb.uclllabs.be. admin.maarten-vandenhof.sb.uclllabs.be. (
-			     31		; Serial
+			     33		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
@@ -25,3 +25,4 @@ secure		IN	A	193.191.177.166
 supersecure	IN	A	193.191.177.166
 @		IN	CAA	0 issue "letsencrypt.org"
 mx		IN	A	193.191.177.166
+@		IN	MX	10	mx.maarten-vandenhof.sb.uclllabs.be.
