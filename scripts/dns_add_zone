@@ -1,0 +1,44 @@
+#!/bin/bash
+
+if [ "$EUID" -ne 0 ]
+  then echo "Run as root";
+  exit 1;
+fi
+
+domain=$1
+date=`date +%Y%m%d`
+
+
+echo -e "$TTL    604800
+;$ORIGIN maarten-vandenhof.sb.uclllabs.be
+@       IN      SOA     ns.$domain.maarten-vandenhof.sb.uclllabs.be. admin.maarten-vandenhof.sb.uclllabs.be. (
+\t\t\t$date"1"	; Serial
+\t\t\t604800	; Refresh
+\t\t\t86400	; Retry
+\t\t\t2419200	; Expire
+\t\t\t604800 )	; Negative Cache TTL
+
+        IN      NS      ns.$domain.maarten-vandenhof.sb.uclllabs.be.
+        IN      NS      ns1.uclllabs.be.
+@               IN      A       193.191.177.166
+" > /etc/bind/zones/db.$domain.maarten-vandenhof.sb.uclllabs.be
+
+echo -e "zone $domain.maarten-vandenhof.sb.uclllabs.be{
+\ttype master;
+\tfile \"/etc/bind/zones/db."$domain".maarten-vandenhof.sb.uclllabs.be\";
+};
+" >> "/etc/bind/named.conf.local"
+
+
+echo -e ""$domain".maarten-vandenhof.sb.uclllabs.be.\tIN\tNS\tns.maarten-vandenhof.sb.uclllabs.be." >> "/etc/bind/zones/maarten-vandenhof.sb.uclllabs.be."
+
+serialnr=$(grep -Po '\d+(?=\s+; Serial)' "/etc/bind/zones/db.$domain")
+serialln=$(grep -Po '\s+; Serial' "/etc/bind/zones/db.$domain")
+serialcomplete=$(grep -Po '\d+\s+; Serial' "/etc/bind/zones/db.$domain")
+serialupdated=$(("$serialnr" + 1))
+echo $serialnr
+echo $serialupdated
+sed -i "s/$serialcomplete/$serialupdated$serialln/g" "/etc/bind/zones/db.$domain"
+
+service bind9 restart;
+
