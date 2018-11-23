@@ -1,0 +1,51 @@
+#!/bin/bash
+if [ "$EUID" -ne 0 ]
+  then echo "Run as root";
+  exit 1;
+fi
+
+$type
+$toresolve
+$ip
+$domain
+$file
+
+function check {
+if ! [ $1 == "-t" ]; then
+	type="A";
+	toresolve=$1;
+	ip=$2;
+	domain=$3;
+else
+	if [ "$2" == "A" ] || [ "$2" == "CNAME" ] || [ "$2" == "MX" ]; then
+		type=$2;
+		toresolve=$3;
+		ip=$4;
+		domain=$5;
+	else
+		type="A";
+		toresolve=$2;
+		ip=$3;
+		domain=$4;
+	fi
+fi
+file="/etc/bind/zones/db.$domain";
+echo $file;
+if ! [ -f $file ]; then
+	echo "File not found";
+else
+	echo "File found"
+fi
+}
+
+check $1 $2 $3 $4 $5;
+
+serialnr=$(grep -Po '\d+(?=\s+; Serial)' "/etc/bind/zones/db.$domain")
+serialln=$(grep -Po '\s+; Serial' "/etc/bind/zones/db.$domain")
+serialcomplete=$(grep -Po '\d+\s+; Serial' "/etc/bind/zones/db.$domain")
+serialupdated=$(("$serialnr" + 1))
+echo $serialnr
+echo $serialupdated
+sed -i "s/$serialcomplete/$serialupdated$serialln/g" "/etc/bind/zones/db.$domain"
+
+service bind9 restart;
